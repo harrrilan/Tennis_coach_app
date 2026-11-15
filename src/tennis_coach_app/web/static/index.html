@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102e28" />
+    <title>Tennis Coach</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+          </div>
+          <div>
+            <p class="eyebrow">Personal workspace</p>
+            <h1>Baseline</h1>
+          </div>
+        </div>
+
+        <div class="privacy-badge">
+          <span class="privacy-dot"></span>
+          Stored locally
+        </div>
+
+        <section class="upload-card" id="upload-zone">
+          <input id="video-input" type="file" accept="video/mp4,video/quicktime,.mp4,.mov" hidden />
+          <button class="upload-button" id="upload-button" type="button">
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            Import a video
+          </button>
+          <p>MP4 or MOV from your phone</p>
+          <div class="upload-progress" id="upload-progress" hidden>
+            <span></span>
+          </div>
+        </section>
+
+        <div class="library-heading">
+          <h2>Your recordings</h2>
+          <span id="video-count">0</span>
+        </div>
+        <div class="video-list" id="video-list"></div>
+
+        <footer class="sidebar-footer">
+          <span class="status-dot"></span>
+          <span id="library-location">Saved in .data/library</span>
+        </footer>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace-header">
+          <div>
+            <p class="eyebrow">Forehand review</p>
+            <h2 id="workspace-title">Start with one clear attempt</h2>
+          </div>
+          <div class="header-actions">
+            <button class="quiet-button" type="button" disabled>Compare</button>
+            <button class="primary-button" id="new-review-button" type="button">New review</button>
+          </div>
+        </header>
+
+        <section class="empty-state" id="empty-state">
+          <div class="court-graphic" aria-hidden="true">
+            <div class="court-line court-line-horizontal"></div>
+            <div class="court-line court-line-vertical"></div>
+            <div class="ball"></div>
+          </div>
+          <p class="eyebrow">Your first review</p>
+          <h3>Bring in one forehand video</h3>
+          <p class="empty-copy">
+            Choose a short phone recording. We’ll help you slow it down, inspect the movement,
+            and mark the moments that matter.
+          </p>
+          <button class="primary-button large" id="empty-upload-button" type="button">
+            Choose video
+          </button>
+          <p class="reassurance">Nothing leaves this computer.</p>
+        </section>
+
+        <section class="review-layout" id="review-layout" hidden>
+          <div class="player-column">
+            <div class="player-card">
+              <div class="video-stage">
+                <video id="video-player" preload="metadata" playsinline></video>
+                <button class="center-play" id="center-play" type="button" aria-label="Play video">
+                  <span></span>
+                </button>
+                <div class="video-badge" id="video-badge">Original</div>
+              </div>
+
+              <div class="timeline-wrap">
+                <input id="timeline" type="range" min="0" max="1000" value="0" step="1" />
+              </div>
+
+              <div class="player-controls">
+                <div class="transport-controls">
+                  <button class="icon-button" id="previous-frame" type="button" title="Previous frame">
+                    <span>−</span> frame
+                  </button>
+                  <button class="play-button" id="play-button" type="button">
+                    <span class="play-symbol"></span>
+                    <span id="play-label">Play</span>
+                  </button>
+                  <button class="icon-button" id="next-frame" type="button" title="Next frame">
+                    frame <span>+</span>
+                  </button>
+                </div>
+
+                <div class="time-readout">
+                  <span id="current-time">0:00.000</span>
+                  <span class="time-divider">/</span>
+                  <span id="duration-time">0:00.000</span>
+                </div>
+
+                <div class="speed-controls" aria-label="Playback speed">
+                  <button type="button" data-speed="0.25">0.25×</button>
+                  <button type="button" data-speed="0.5">0.5×</button>
+                  <button class="active" type="button" data-speed="1">1×</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="clip-meta" id="clip-meta"></div>
+          </div>
+
+          <aside class="review-panel">
+            <div class="review-panel-header">
+              <div>
+                <p class="eyebrow">Review notes</p>
+                <h3>What are you noticing?</h3>
+              </div>
+              <span class="draft-pill">Draft</span>
+            </div>
+
+            <div class="review-step active">
+              <span class="step-number">1</span>
+              <div>
+                <strong>Find the attempt</strong>
+                <p>Use the timeline and frame controls to locate one forehand.</p>
+              </div>
+            </div>
+            <div class="review-step">
+              <span class="step-number">2</span>
+              <div>
+                <strong>Mark key moments</strong>
+                <p>Preparation, forward swing, contact, and finish are coming next.</p>
+              </div>
+            </div>
+
+            <label class="note-field">
+              <span>Your observation</span>
+              <textarea placeholder="Example: I feel crowded when the ball reaches me…"></textarea>
+            </label>
+            <button class="save-button" type="button" disabled>Save review</button>
+            <p class="coming-soon">Markers and saved notes are the next build step.</p>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

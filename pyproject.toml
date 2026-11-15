@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tennis-coach-app"
+version = "0.1.0"
+description = "Local-first desktop video review for learning tennis technique"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "av>=19,<20",
+    "fastapi>=0.162,<0.163",
+    "numpy>=2.2,<3",
+    "python-multipart>=0.0.33,<0.1",
+    "PySide6>=6.10.3,<6.12",
+    "uvicorn[standard]>=0.54,<0.55",
+]
+
+[project.optional-dependencies]
+pose = [
+    "mediapipe>=1.2,<2",
+    # MediaPipe 1.2 requires this cv2 provider. Do not add another OpenCV wheel.
+    "opencv-contrib-python>=4.13,<5",
+]
+
+[project.scripts]
+tennis-coach = "tennis_coach_app.web.app:main"
+tennis-coach-desktop = "tennis_coach_app.app:main"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28,<0.29",
+    "pytest>=9,<10",
+    "pytest-qt>=4.5,<5",
+    "ruff>=0.14,<0.15",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+tennis_coach_app = ["web/static/*"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
